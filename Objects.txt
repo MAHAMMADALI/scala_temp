@@ -1,0 +1,17 @@
+1. object are keywords which creates an object 
+   It is kind of a singleton class
+
+2. class and object can have same name
+    Class is called companion class
+    object is called companion object
+   Whatever is defined inside an object is static to the companion class
+   Class and Object should be defined in the same file. Otherwise they are not companion class and companion object   
+   
+3. main method is always written inside object
+   public static void main
+
+4. companion class, companion object and apply() method is
+used to define Factory design pattern.
+
+5. implicit methods imports  
+   

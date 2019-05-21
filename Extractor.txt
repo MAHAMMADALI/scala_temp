@@ -1,0 +1,41 @@
+case class User(firstName: String, lastName: String, score: Int)
+
+val freeUser = FreeUser("Ram", 10)
+
+advance(List(freeUser))
+
+  def advance(xs: List[User]) = xs match {
+  case User(_, _, score1) :: User(_, _, score2) :: _ => score1 - score2
+  case _ => 0
+}
+
+trait User {
+  def name: String
+  def score: Int
+}
+
+class FreeUser(
+  val name: String,
+  val score: Int,
+  val upgradeProbability: Double) extends User
+  
+class PremiumUser(
+  val name: String,
+  val score: Int) extends User
+
+object FreeUser {
+  def unapply(user: FreeUser): Option[(String, Int, Double)] =
+    Some((user.name, user.score, user.upgradeProbability
+}
+
+object PremiumUser {
+  def unapply(user: PremiumUser): Option[(String, Int)] =
+    Some((user.name, user.score))
+}
+
+
+
+
+
+Single Parameter Extractor
+def unapply(object: S): Option[T]

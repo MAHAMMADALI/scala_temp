@@ -1,0 +1,378 @@
+F:\data>scala test.scala Ali
+Hello Ali
+===================================
+F:\BigData\OLC\Scala\Assignment\installigScala>scalac HelloWorld.scala
+
+F:\BigData\OLC\Scala\Assignment\installigScala>scala HelloWorld
+Hello World
+=============== Tuple ====================
+Assigning multiple variables in a single line:
+scala> val(name:String, age:Int, sal:Float)=Tuple3("suraj",29,500f)
+name: String = suraj
+age: Int = 29
+sal: Float = 500.0
+scala> val(name:String, age:Int, sal:Float) = ("suraj",29,500f)
+name: String = suraj
+age: Int = 29
+sal: Float = 500.0
+scala> val(name,age,sal)=("suraj",29,5000f)
+name: String = suraj
+age: Int = 29
+sal: Float = 5000.0
+scala> val items=(5,6,7)
+items: (Int, Int, Int) = (5,6,7)
+
+scala> items._1
+res0: Int = 5
+
+scala> items._3
+res1: Int = 7
+
+scala> val(x,y,z)=items
+x: Int = 5
+y: Int = 6
+z: Int = 7
+------------------
+scala> val x = 10
+x: Int = 10
+scala> x.getClass.getName
+res3: String = int
+scala> x!= 11
+res4: Boolean = true
+scala> x.getClass
+res5: Class[Int] = int
+scala> x.hashCode
+res6: Int = 10
+scala> x.##
+res7: Int = 10
+scala> x.isInstanceOf[Int]
+res8: Boolean = true
+scala> x.asInstanceOf[Int]
+res9: Int = 10
+scala> x.asInstanceOf[Long]
+res10: Long = 10
+scala> x.asInstanceOf[Boolean]
+java.lang.ClassCastException: java.lang.Integer cannot be cast to java
+  at scala.runtime.BoxesRunTime.unboxToBoolean(BoxesRunTime.java:87)
+  ... 28 elided 
+-------------
+scala> println("Hello \b\b\b Worlds")
+Hel Worlds
+
+scala> println("Hello \t\t World")
+Hello            World
+
+scala> println("hello \f world")
+hello ? world
+
+scala> println ("Hello \r World")
+ World
+
+scala> println("Don\'t Go")
+Don't Go
+
+scala> println("Don't Go")
+Don't Go
+
+scala> println("Visit us at http:\\\\www.olc.com")
+Visit us at http:\\www.olc.com
+--------------
+scala> val x = 10
+x: Int = 10
+
+scala> var y = 20
+y: Int = 20
+
+scala> var num = 5
+num: Int = 5
+
+scala> if(num < x || { y = y+1; y == 21 }) print("True") else print("false")
+True
+-----------------
+scala> val x:Byte = 10
+x: Byte = 10
+
+scala> val y:Byte = 20
+y: Byte = 20
+
+scala> val z = x + y
+z: Int = 30
+
+scala> val z = x.+(y).toByte
+z: Byte = 30
+---------
+scala> val num:Any = 10
+num: Any = 10
+
+scala> if(num.isInstanceOf[Int])num.asInstanceOf[Int]*2
+res28: AnyVal = 20
+------ Match Exp -----
+scala> val option = 5
+option: Int = 5
+
+scala> val message = option match{
+     | case 1 => "ONE"
+     | case 2 => "TWO"
+     | case 3 => {
+     | println("Entered 3");
+     | "Three"
+     | }
+     | case 4 => println("Entered 4"); "four"
+     | case other => s"Wrong Entry $other"
+     | }
+message: String = Wrong Entry 5
+
+scala> val num =11
+num: Int = 11
+
+scala> val msg = (num%2==0) match{
+     | case true => num +"is Even"
+     | case false => num +"is Odd"
+     | case nan => num +"not a num"
+     | }
+<console>:15: warning: unreachable code
+       case nan => num +"not a num"
+                       ^
+msg: String = 11is Odd
+
+scala> val day ="Mon"
+day: String = Mon
+
+scala> val result = day match{
+     | case "Mon"|"Tues"|"Wed"|"THU"|"FRI" => "weekday"
+     | case "Sat"|"Sun" => "WeekEnd"
+     | }
+result: String = weekday
+------------ if else if ---------
+scala> val day = "Mom"
+day: String = Mom
+
+scala> val result = day match{
+     | case "Mon"|"Tues"|"Wed"|"THU"|"FRI" => "weekday"
+     | case "Sat"|"Sun" => "WeekEnd"
+     | }
+scala.MatchError: Mom (of class java.lang.String)
+  ... 31 elided
+
+scala> val day ="Mon"
+day: String = Mon
+
+scala> val result = day match{
+     | case "Mon"|"Tues"|"Wed"|"THU"|"FRI" => "weekday"
+     | case "Sat"|"Sun" => "WeekEnd"
+     | }
+result: String = weekday
+
+scala> if(10%2 == 0)print("Even")
+Even
+scala> if(11%2 == 0)print("Even")
+
+scala> if(11%2 == 0)print("Even") else print("ODD")
+ODD
+
+scala> val marks=55
+marks: Int = 55
+scala> if (marks < 40 )print("fail")else if (marks >50 && marks < 60 )print("Pass") else print("Excellent Score")
+Pass
+
+
+-------- Prefix Unary Operator ------------------
+class Emp(empName:String, empSal:Int, empType:String){
+	def unary_!():Boolean={empType.equalsIgnoreCase("permanent")}
+	def unary_*():Int={ empSal * 2}
+}
+object Demo{
+	def main(args:Array[String]):Unit={
+	val emp = new Emp("Suraj",5000,"Permanent")
+	println(!(emp))
+	println(emp.unary_*())
+	}
+}
+------------ FUNCTIONS -------------------
+scala> def max(n1:Int, n2:Int):Int={
+     | if(n1 > n2) return n1
+     | else n2
+     | }
+max: (n1: Int, n2: Int)Int
+
+scala> max(4,5)
+res10: Int = 5
+
+scala> max(14,5)
+res11: Int = 14
+-------------
+scala> def max(num1:Int, num2:Int)={
+     | if(num1 > num2) num1
+     | else num2
+     | }
+max: (num1: Int, num2: Int)Int
+
+scala> max(9,6)
+res12: Int = 9
+---------- Imperative Style --------
+scala> numList
+res20: List[Int] = List(1, 2, 3, 4, 5)
+scala> while ( count < numList.length){
+     | println(count)
+     | count = count + 1
+     | }
+0
+1
+2
+3
+4
+-------- 
+scala> val list = List(1,2,3,4,5,6,7,8,9,10)
+list: List[Int] = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+scala> var count = 0; var sum = 0;
+count: Int = 0
+sum: Int = 0
+
+scala> while (count < list.length){
+     | println( count+ " "+list(count))
+     | sum += list(count)
+     | count += 1
+     | }
+0 1
+1 2
+2 3
+3 4
+4 5
+5 6
+6 7
+7 8
+8 9
+9 10
+
+scala> print(sum)
+55
+----------- Functional Style -----
+scala> list.foreach(num => {print(num)})
+12345678910
+scala> list.foreach( (num:Int) => {print(num) })
+12345678910
+scala> list.foreach(print)
+12345678910
+------- Var-Agrs ------
+scala> def sum(nums:Int*){
+     | var sum=0
+     | println(nums.getClass.getName)
+     | nums.foreach(num => sum = sum + num)
+     | println(sum)
+     | }
+sum: (nums: Int*)Unit
+scala> sum(8,5,8)
+21
+**Passing List on  Var-Arg method:
+scala> val list = List(1,2,3,4,5,6,7,8)
+list: List[Int] = List(1, 2, 3, 4, 5, 6, 7, 8)
+
+scala> sum(list)
+<console>:14: error: type mismatch;
+ found   : List[Int]
+ required: Int
+       sum(list)
+          ^
+To work this, we need to pass list as below, which says extract all element from the list and convert it to N-arguments and then pass it while calling the function.
+scala> sum(list:_*)
+36
+---------------- Named Parameters ---------
+scala> def total(mark1:Int, mark2:Int, mark3:Int=10)={
+     | println(s"mark1=${mark1} mark2=${mark2} mark3=${mark3}")
+     | mark1+mark2+mark3
+     | }
+total: (mark1: Int, mark2: Int, mark3: Int)Int
+
+scala> total(2,3,4)
+mark1=2 mark2=3 mark3=4
+res34: Int = 9
+
+scala> total(2,3)
+mark1=2 mark2=3 mark3=10
+res35: Int = 15
+---------- Recursion -----------
+scala> def fact(number:Int):Int={
+     | if(number == 1) return number
+     | else number * fact(number - 1)
+     | }
+fact: (number: Int)Int
+scala> fact(5)
+res6: Int = 120
+
+*** Fact useing Match Conditions:
+scala> def fact(num:Int):Int={
+     | val msg = (num == 1) match{
+     | case true => num
+     | case false => num * fact(num - 1)
+     | }
+     | msg
+     | }
+fact: (num: Int)Int
+
+scala> fact(5)
+res13: Int = 120
+
+scala> fact(1)
+res14: Int = 1
+
+scala> fact(10)
+res15: Int = 3628800
+---------- Nested Functions --------------
+scala> def max3(a:Int, b:Int, c:Int)={
+     | def max2(x:Int, y:Int)={ if(x>y) x else y}
+     | max2(a, max2(b,c))
+     | }
+max3: (a: Int, b: Int, c: Int)Int
+
+scala> max3(9,6,10)
+res17: Int = 10
+*Max of 4 numbers: 
+scala> def max(a:Int, b:Int, c:Int, d:Int)={
+     | def max(x:Int, y:Int)={ if(x>y) x else y}
+     | max(max(a,b),max(c,d))
+     | }
+max: (a: Int, b: Int, c: Int, d: Int)Int
+
+scala> max(5,4,6,9)
+res18: Int = 9
+----------- Partial Applied Functions --------
+scala> val f = scala.math.floor(5.9)
+f: Double = 5.0
+
+scala> val f = scala.math.floor _
+f: Double => Double = $$Lambda$1366/2144226315@f284158
+
+scala> val f = scala.math.floor (_)
+f: Double => Double = $$Lambda$1375/1514237425@5ee6bcd2
+
+scala> f(5.3)
+res19: Double = 5.0
+scala> val list=List(3.2,4.5,6.7)
+list: List[Double] = List(3.2, 4.5, 6.7)
+
+scala> list.map(f)
+res20: List[Double] = List(3.0, 4.0, 6.0)
+
+------------- LinearSearch Alogritham	-------
+object LinearSearch{
+	def main(args:Array[String]):Unit={
+		val arr = Array(3,4,5,11,23,17,21)
+		val pos = search(arr,17)
+		pos match{
+			case -1 => println("Element not Found")
+			case p => println("Element Found at Inde $p")
+		}
+	}
+	def search(arr:Array[Int], element:Int):Int={
+		for(i <- 0 until arr.length){
+			println(s"i = $i")
+			if(arr(i) == element){
+			return i
+			}
+		}
+		println("Not Found")
+		-1
+	}
+}
+---------------------------------------------------------------

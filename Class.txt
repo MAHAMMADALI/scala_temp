@@ -1,0 +1,119 @@
+
+//Scala Class without any parameter
+class User {
+ val firstname = "John"
+ var lastname = "Mike"
+ def greet = s"Hello from $firstname"
+ override def toString = s"User($firstname)"
+}
+
+
+//Internal Compiler defined Java Class
+class User {
+   private final firstname
+   private lastname
+   
+   def User() {
+      firstname = "John"
+      lastname = "Mike"
+   }
+
+  public firstname() = {firstname}
+  public lastname() = {lastname}
+  public lastname_=(lname: String) = lastname = lname   
+  public def greet: String = s"Hello from $firstname"
+  public override def toString = s"User($firstname)"
+
+}
+
+
+
+//Parameterized Class in Scala
+class User(fn: String, ln: String){
+ val firstname = fn
+ var lastname  = ln
+
+ //User defined Constructor
+ def this() = {
+  this("Alice", "Mary")
+ }
+
+ def this(fn:String) = {
+    this(fn, "Pit")
+ }
+
+ def greet: String = s"Hello from $firstname"
+ override def toString = s"User($firstname)"
+}
+
+
+//Internal Compiler defined Java Class
+class User {
+   private final firstname
+   private lastname
+   
+   def User(fn:String, ln:String) {
+      firstname = fn
+      lastname = ln
+   }
+
+   def User() {
+      User("Alice", "Mary")
+   }
+
+   def User(fn: String) {
+      User(fn, "Pit")
+   }
+
+  public firstname() = {firstname}
+  public lastname() = {lastname}
+  public lastname_=(lname: String) = lastname = lname   
+  public def greet: String = s"Hello from $firstname"
+  public override def toString = s"User($firstname)"
+
+}
+
+
+
+//Compact way of defining a Scala Class
+class User(val firstname: String, var lastname: String) {
+
+   def this() = {
+      this("John", "Mike")
+   }
+
+   def greet: String = s"Hello from $firstname"
+   override def toString = s"User($firstname)"
+}
+
+
+//Internal Java definition	 
+class User {
+
+   private final firstname
+   private lastname
+
+   def User(firstname: String, lastname: String) {
+      firstname = firstname 
+      lastname = lastname
+   }	  
+	
+   def firstname() = firstname
+   def lastname() = lastname
+   def lastname_=(ln: String) = lastname = ln	
+		  
+   def greet: String = s"Hello from $firstname"
+   override def toString = s"User($firstname)"	
+}	
+
+
+
+
+1. Default constructor is created by the compiler
+2. val means final member, var means normal member
+3. For "val member", only getter method is created 
+4. For "var member"  both getter and setter method is created
+5. this keyword is used to create auxillary constuctors
+6. Member are private by default
+7. Methods are public by default
+8. Getter method name is same as member name.
