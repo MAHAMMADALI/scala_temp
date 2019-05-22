@@ -18,3 +18,11 @@ object LinearSearch{
     -1
   }
 }
+LinearSearch Output:
+i = 0
+i = 1
+i = 2
+i = 3
+i = 4
+i = 5
+Element Found at Inde 5
