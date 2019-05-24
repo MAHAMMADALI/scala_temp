@@ -1,0 +1,378 @@
+scala> val msg1="HelloWorld"
+msg1: String = HelloWorld
+
+scala> val msg2=new String("HelloWorld")
+msg2: String = HelloWorld
+
+scala> msg
+msg1   msg2
+
+scala> msg1.equals(msg2)
+res0: Boolean = true
+
+scala> msg1 == msg2
+res1: Boolean = true
+
+scala> var msg:String=null
+msg: String = null
+
+scala> var msg:String=_
+msg: String = null
+
+scala> msg.length
+java.lang.NullPointerException
+  ... 28 elided
+
+scala> val msg = null
+msg: Null = null
+
+scala> val arr = Array(1,2,3,4,5)
+arr: Array[Int] = Array(1, 2, 3, 4, 5)
+
+scala> arr.foreach(ele => print(ele*2))
+246810
+scala> val double = arr.map(ele => ele * 2)
+double: Array[Int] = Array(2, 4, 6, 8, 10)
+
+scala> var marks="matchs 96,eng 95,science 54"
+marks: String = matchs 96,eng 95,science 54
+
+scala> var markSub=marks.split(",")
+markSub: Array[String] = Array(matchs 96, eng 95, science 54)
+
+scala> var markArr = markSub.map(mk => mk.split(" "))
+markArr: Array[Array[String]] = Array(Array(matchs, 96), Array(eng, 95), Array(science, 54))
+
+scala> var markArr = markSub.map(mk => mk.split(" ")(1))
+markArr: Array[String] = Array(96, 95, 54)
+
+scala> var markArr = markSub.map(mk => mk.split(" ")(1).toInt)
+markArr: Array[Int] = Array(96, 95, 54)
+scala> var totalMarks = markArr.sum
+totalMarks: Int = 245
+
+scala> var totalSubjects = markArr.size
+totalSubjects: Int = 3
+
+scala> var totalSubjects = markArr.length
+totalSubjects: Int = 3
+
+scala> var avg = totalMarks/totalSubjects.toFloat
+avg: Float = 81.666664
+
+scala> val pi = scala.math.Pi
+pi: Double = 3.141592653589793
+
+scala> println(f"PI=$pi%.3f")
+PI=3.142
+
+scala> println(f"PI=$pi%.0f")
+PI=3
+
+scala> val v="apple"
+v: String = apple
+
+scala> f"i have 3 $v%.3s with me"
+res16: String = i have 3 app with me
+
+scala> val num=10
+num: Int = 10
+
+scala> println(raw"Hello \n world $num")
+Hello \n world 10
+
+scala> println(s"Hello \n world $num")
+Hello
+ world 10
+
+scala> var msg ="hello world"
+msg: String = hello world
+
+scala> msg.toUpperCase
+res20: String = HELLO WORLD
+
+scala> msg.foreach(c => print(c.toUpper))
+HELLO WORLD
+scala> msg.map(_.toUpper)
+res22: String = HELLO WORLD
+scala> msg
+res23: String = hello world
+
+scala> for(c <- msg.reverse)print(c)
+dlrow olleh
+scala> msg.reverse.foreach(print)
+dlrow olleh
+
+scala> var(name,age,sal)=("suraj",29,5000f)
+name: String = suraj
+age: Int = 29
+sal: Float = 5000.0
+
+scala> print(s"Hello $name your age=$age  and \n Salary is $sal")
+Hello suraj your age=29  and
+ Salary is 5000.0
+scala> print(s"Hello $name your age=$age  and \n Salary is $sal0")
+<console>:14: error: not found: value sal0
+       print(s"Hello $name your age=$age  and \n Salary is $sal0")
+                                                            ^
+
+scala> print(s"Hello $name your age=$age  and \n Salary is ${sal}0")
+Hello suraj your age=29  and
+ Salary is 5000.00
+
+scala> print(s"Hello $name your age=$age and salary is $sal \b0")
+Hello suraj your age=29 and salary is 5000.00
+
+scala> print(s"Hello $name your age=$age and salary is $sal/-")
+Hello suraj your age=29 and salary is 5000.0/-
+
+scala> print(s"Hello $name your age=$age and salary is $$$sal/-")
+Hello suraj your age=29 and salary is $5000.0/-
+
+scala> val msg = "hello world"
+msg: String = hello world
+
+scala> val result = for(c<-msg)yield c.toUpper
+result: String = HELLO WORLD
+
+scala> val result = for(c<-msg) c.toUpper //Without yield it return Unit.
+result: Unit = ()
+
+Regilar Expression in String:
+----------------------------
+scala> var msg ="Your Age is 27, your Salary is 5000"
+msg: String = Your Age is 27, your Salary is 5000
+
+scala> val numRegex="[0-9]+".r
+numRegex: scala.util.matching.Regex = [0-9]+
+
+scala> val firstMatch= numRegex.findFirst
+findFirstIn   findFirstMatchIn
+
+scala> val firstMatch= numRegex.findFirstIn(msg)
+firstMatch: Option[String] = Some(27)
+
+scala> val firstMatch= numRegex.findFirstMatchIn(msg)
+firstMatch: Option[scala.util.matching.Regex.Match] = Some(27)
+
+scala> val msg1 = "Hello Hi Greetings for the day"
+msg1: String = Hello Hi Greetings for the day
+
+scala> val numRegex="[0-9]+".r
+numRegex: scala.util.matching.Regex = [0-9]+
+
+scala> val firstmatch1 = numRegex.findFirstIn(msg1)
+firstmatch1: Option[String] = None
+
+scala> val firstmatch1 = numRegex.findFirstMatchIn(msg1)
+firstmatch1: Option[scala.util.matching.Regex.Match] = None
+
+scala> numRegex.
+anchored         findFirstIn         findPrefixOf   replaceAllIn     split        unapplySeq
+findAllIn        findFirstMatchIn    pattern        replaceFirstIn   toString
+findAllMatchIn   findPrefixMatchOf   regex          replaceSomeIn    unanchored
+
+scala> numRegex.findAllIn(msg)
+res11: scala.util.matching.Regex.MatchIterator = <iterator>
+
+scala> res11.foreach(println)
+27
+5000
+
+scala> numRegex.findAllIn(msg).toArray
+res14: Array[String] = Array(27, 5000)
+
+//2 Ways to create Regex object
+1. using .r
+scala> val numRegex="[0-9]+".r
+numRegex: scala.util.matching.Regex = [0-9]+
+2. Using Regex class
+scala> import scala.util.matching.Regex
+import scala.util.matching.Regex
+
+scala> val numPattern = new Regex("[0-9]+")
+numPattern: scala.util.matching.Regex = [0-9]+
+
+scala> msg
+res15: String = Your Age is 27, your Salary is 5000
+
+scala> val regex="Helo".r
+regex: scala.util.matching.Regex = Helo
+
+scala> val result = regex.findFirstIn(msg).getOrElse("No Match")
+result: String = No Match
+
+scala> val result = regex.findFirstIn(msg).get
+java.util.NoSuchElementException: None.get
+  at scala.None$.get(Option.scala:366)
+  at scala.None$.get(Option.scala:364)
+  ... 28 elided
+scala> val regex2="\\d+".r
+regex2: scala.util.matching.Regex = \d+
+
+scala> regex2.findFirstIn(msg).foreach(data=>println(data))
+27
+
+scala> val result = regex2.findFirstIn(msg)
+result: Option[String] = Some(27)
+
+scala> result match{
+     | case Some(s) => println(s"Found: $s")
+     | case None => println("Nothing found")
+     | }
+Found: 27
+scala> var msg ="Hello World"
+msg: String = Hello World
+
+scala> msg.charAt(0)
+res20: Char = H
+
+scala> msg(0)
+res21: Char = H
+
+scala> "Hello World"(0) //Internally gets converted into "Hello World".apply(0)
+res22: Char = H
+
+scala> var msg ="Hello World"
+msg: String = Hello World
+
+scala> msg.charAt(0)
+res20: Char = H
+
+scala> msg(0)
+res21: Char = H
+
+scala> "Hello World"(0)
+res22: Char = H
+
+scala> implicit class StringUtils(s:String){
+     | def plusOne = s.map(c => (c+1).toChar)
+     | }
+defined class StringUtils
+
+scala> val result=msg.plusOne
+result: String = BCDE
+
+scala> implicit class StringUtils(s:String){
+     | def plusOne = s.map(c => (c + 1).toChar)
+     | def size=10
+     | }
+defined class StringUtils
+
+scala> "Hello".plusOne
+res0: String = Ifmmp
+
+scala> val a = new StringUtils("Hello")
+a: StringUtils = StringUtils@48b2dbc4
+
+scala> a.size
+res1: Int = 10
+
+scala> implicit class StringsUtils1(s:String){
+     | def firstCharASCII = s.charAt(0).asInstanceOf[Int]
+     | }
+defined class StringsUtils1
+
+scala> "ABCD".firstCharASCII
+res4: Int = 65
+
+Implicit Parameters and variables:
+----------------------------------
+scala> val num1=10
+num1: Int = 10
+
+scala> def multiply(implicit num2:Int) = num2 * num1
+multiply: (implicit num2: Int)Int
+
+scala> implicit val num3=40
+num3: Int = 40
+
+scala> multiply
+res0: Int = 400
+
+scala> multiply(10)
+res1: Int = 100
+
+------- Implicit variable example 
+object MultiImplicitVariables {
+
+  def main(args: Array[String]): Unit = {
+    val num1 = 5
+    val num2 = 10
+
+    implicit val dbConnection = "DB"
+    implicit val salary:Double = 50000
+
+    println ( s"Sum method retruns ${sum(5, 10)}")
+    println ( s"Mul method retruns ${mul(5,10)}")
+    println ( s"SQ method retruns ${sq}")
+  }
+  def sum(num1: Int, num2: Int)(implicit dbConn:String)={
+    println(s"$num1 , $num2 , $dbConn")
+    num1+num2
+  }
+  def mul(num1: Int, num2:Int)(implicit dbConn:String, salary:Double)={
+    println(s"$num1, $num2 , $dbConn , $salary")
+  }
+  def sq(implicit dbConn:String, salary:Double)={
+    println(s"$dbConn $salary")
+    salary * salary
+  }
+}
+OUTPUT:
+------
+5 , 10 , DB
+Sum method retruns 15
+5, 10 , DB , 50000.0
+Mul method retruns ()
+DB 50000.0
+SQ method retruns 2.5E9
+----------- Implicit functions -------------------
+Implicit functions are used to convert one type to another type.
+scala> class UpperString(str:String){
+     | def convertToUpper=str.toUpperCase
+     | }
+defined class UpperString
+
+scala> class LowerString(str:String){
+     | def convertToLower=str.toLowerCase
+     | }
+defined class LowerString
+
+scala> import scala.language.implicitConversions
+import scala.language.implicitConversions
+
+scala> object conversions{
+     | implicit def stringToUpper(str:String) = new UpperString(str)
+     | implicit def stringToLower(str:String) = new LowerString(str)
+     | }
+defined object conversions
+scala> import conversions._
+import conversions._
+
+scala> "Hello".convertToUpper
+res4: String = HELLO
+
+scala> "HELLO".convertToLower
+res5: String = hello
+-------------- xxx xxx xxx -------------------------------
+Assignment:
+Write a function that takes an int and return you 5 characters String:
+String P-No:8
+-------------
+1. Read a string and convert al uppercase to lowercase and vice-versa
+ex: HelloWorld => hELLOwORLD
+2. read a string and just collect all the numbers (try reading them byte wise and read the  ASCII of numbers and filter them)
+ex: Hello4World23=>423
+Strings P-no: 15
+----------------
+1. Write a method on StringUtils to produce the age of the customer provided you a given with date of Birth as well as format in the below format.
+"25-01-1989".age("dd-m-yyyy") //29Y04M20D
+"25011989".age("ddmmYYYY") //29Y04M20D
+"01251989".age("MMDDYYYY") //29Y04M20D
+
+2. Create an Employee class with fields name, salary, DOB.
+Later create an implicit class(EmployeeUtils) with below methods
+- hikeSalary(percentage:Float):Employee
+It retruns you back new employee object with the Hiked Salary.
+ 
