@@ -1,0 +1,81 @@
+scala> class Emp1(id:Int, name:String, sal:Float)
+defined class Emp1
+scala> val emp1 = new Emp1(103,"ew",500)
+emp1: Emp1 = Emp1@710b20a0
+
+scala> val emp2 =  Emp1(103,"ew",500)
+<console>:11: error: not found: value Emp1
+       val emp2 =  Emp1(103,"ew",500)
+
+scala> case class EmpCase(id:Int, name:String, sal:Float)
+defined class EmpCase
+
+scala> val empCase = EmpCase(102,"sfd", 400)
+empCase: EmpCase = EmpCase(102,sfd,400.0)
+
+- we cannot access if the params are not defined with val/var
+scala> class Emp2(id:Int, name:String, sal:Float)
+defined class Emp2
+
+scala> val emp2 = new Emp2(101,"Suraz", 4000)
+emp2: Emp2 = Emp2@64b9e9ed
+
+scala> println(s"${emp2.id}, ${emp2.name}")
+<console>:13: error: value id is not a member of Emp2
+       println(s"${emp2.id}, ${emp2.name}")
+                        ^
+<console>:13: error: value name is not a member of Emp2
+       println(s"${emp2.id}, ${emp2.name}")
+                                    ^
+
+scala> class Emp3(var id:Int,val name:String,val  sal:Float)
+defined class Emp3
+
+scala> val emp3 = new Emp3(101,"Suraz", 4000)
+emp3: Emp3 = Emp3@32fc3125
+
+scala> println(s"${emp3.id}, ${emp3.name}")
+101, Suraz
+
+-But by using case class we can access. 
+scala> case class Emp5(id:Int, name:String, sal:Float)
+defined class Emp5
+
+scala> val emp5 = Emp5(101,"Suraz", 4000)
+emp5: Emp5 = Emp5(101,Suraz,4000.0)
+
+scala> println(s"${emp5.id}, ${emp5.name}")
+101, Suraz
+
+------- Copy() ----------
+scala> case class EmpCopy(id:Int, name:String, sal:Float)
+defined class EmpCopy
+
+scala> val empCopy = EmpCopy(101,"Suraz", 4000)
+empCopy: EmpCopy = EmpCopy(101,Suraz,4000.0)
+
+scala> empCopy.hashCode
+res8: Int = 1108403603
+
+scala> empCopy.##
+res9: Int = 1108403603
+
+scala> val empCopy2 = empCopy
+empCopy2: EmpCopy = EmpCopy(101,Suraz,4000.0)
+
+scala> empCopy2.##
+res10: Int = 1108403603
+
+scala> val eCopy3=empCopy2.copy(id=103)
+eCopy3: EmpCopy = EmpCopy(103,Suraz,4000.0)
+
+scala> eCopy3.##
+res11: Int = -1618741497
+
+------ Abstract case Class
+scala> abstract case class EmpAbstract(id:Int, name:String, sal:Float)
+defined class EmpAbstract
+
+scala> val empAbstract = EmpAbstract(101,"Suraz", 4000)
+<console>:13: error: EmpAbstract.type does not take parameters
+       val empAbstract = EmpAbstract(101,"Suraz", 4000)

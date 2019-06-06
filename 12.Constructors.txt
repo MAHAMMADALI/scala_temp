@@ -1,0 +1,146 @@
+============ Default Primary constructor ========
+scala> class Emp{
+     | println("Hello from 1st print stmt")
+     | val empName ="Suraj"
+     | def sayHello=s"Hello ${empName}"
+     | println("world from 2nd print stmt")
+     | println(s"Calling sayHello method from 3rd print stmt ${sayHello}")
+     | }
+defined class Emp
+
+scala> val emp = new Emp
+Hello from 1st print stmt
+world from 2nd print stmt
+Calling sayHello method from 3rd print stmt Hello Suraj
+emp: Emp = Emp@65593327
+======= Param Constructor =======
+scala> class Employee(val empID:Int, empName: String, empSalary: Float) {
+     |   var employeeId = empID
+     |   var employeeName = empName
+     |   var employeeSalary = empSalary
+     |   print(s"Employee Details from outside method: Name: ${employeeName} Salary: ${employeeSalary}, EmpID: ${emp
+loyeeId}")
+     |
+     |   def hikeSalary(percent: Float) {
+     |     employeeSalary = employeeSalary + (employeeSalary * percent)
+     |     println("----- From hikeSalary method -----")
+     |     println("EmpID: " + employeeId)
+     |     println("EmpName: " + employeeName)
+     |     println("EmpSal: " + employeeSalary)
+     |   }
+     | }
+defined class Employee
+
+scala> val emp = new Employee(101, "suraz", 5000f)
+Employee Details from outside method: Name: suraz Salary: 5000.0, EmpID: 101emp: Employee = Employee@2c70a1de
+
+scala>       emp.hikeSalary(0.20f)
+----- From hikeSalary method -----
+EmpID: 101
+EmpName: suraz
+EmpSal: 6000.0
+====== Constructor Overloading using primary contructor ==========
+class Employee(val empId:Int=0, val empName:String="", val empSalary:Float=5000f){
+println(s"empid=${empId}, empName=${empName}, empSal=${empSalary}")
+}
+defined class Employee
+
+scala> val e = new Employee
+empid=0, empName=, empSal=5000.0
+e: Employee = Employee@22cf6c9c
+scala> val e1 = new Employee(101)
+empid=101, empName=, empSal=5000.0
+e1: Employee = Employee@417f7d7f
+
+scala> val e2 = new Employee(120,"Ali")
+empid=120, empName=Ali, empSal=5000.0
+e2: Employee = Employee@520b547c
+
+scala> val e3 = new Employee(104, empSalary=6000)
+empid=104, empName=, empSal=6000.0
+e3: Employee = Employee@797a5b31
+============ Auxiliary Constructor ========
+class EmpAuziliary(val empId:Int, val empName:String, val empSalary:Float){
+  println(s" from Primary Constructor empid=${empId}, empName=${empName}, empSal=${empSalary}")
+  def this(){
+   this(0, "", 0.0f)
+   println("From Auxiliary Constructor")
+  }
+}
+
+scala> val empAu = new EmpAuziliary
+ from Primary Constructor empid=0, empName=, empSal=0.0
+From Auxiliary Constructor
+empAu: EmpAuziliary = EmpAuziliary@671d7871
+
+scala> val empA1 = new EmpAuziliary(101,"xyz", 5999)
+ from Primary Constructor empid=101, empName=xyz, empSal=5999.0
+empA1: EmpAuziliary = EmpAuziliary@657486c1
+
+scala> class Emp(){
+     |  println("primary Cons")
+     |   def this(empid:Int, empname:String, empsal:Float){
+     |    this()//calling primary construter should be the first statement.
+     |    println("from Auxiliary con")
+     |  }
+     | }
+defined class Emp
+
+scala> val v = new Emp
+primary Cons
+v: Emp = Emp@6d61c425
+
+scala> val v = new Emp(101, "suraz", 5000)
+primary Cons
+from Auxiliary con
+v: Emp = Emp@2f457fa2
+- Auziliary constructor are not allowed to declase val/var to the parameters, results to compilation error.
+scala> class Emplo(){
+     |        println("from Primary Cons")
+     |        var empId:Int=_
+     |        def this(empid:Int, empname:String, empsal:Float){
+     |         this()
+     |         println("From Auxi cons")
+     |         println(s"empid = ${empid}")
+     |        }
+     |       }
+defined class Emplo
+
+scala> val p = new Emplo
+from Primary Cons
+p: Emplo = Emplo@38c607b2
+
+scala> val p = new Emplo(101, "suraz", 5000)
+from Primary Cons
+From Auxi cons
+empid = 101
+p: Emplo = Emplo@1475ce17
+
+------- One Primary and Two Auxiliray Cons -------
+scala> class Test{
+     |  println("Primary Con")
+     |  def this(empid:Int, empName:String, empSal:Float){
+     |  this()
+     |  println("Auxiliary cons(- - -)")
+     |  }
+     |  def this(empid:Int){
+     |   this(0, "", 0.0f)
+     |   println("auxiliary cons(-)")
+     |  } }
+defined class Test
+
+scala> val t = new Test
+Primary Con
+t: Test = Test@7d700d35
+
+scala> val t = new Test(101)
+Primary Con
+Auxiliary cons(- - -)
+auxiliary cons(-)
+t: Test = Test@3481e4d
+
+scala> val t = new Test(101,"Su",788)
+Primary Con
+Auxiliary cons(- - -)
+t: Test = Test@1d64adf1
+

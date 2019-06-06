@@ -1,0 +1,527 @@
+======== Arrays ========
+-Max values:
+scala> val maxIntVal = Int.MaxValue
+maxIntVal: Int = 2147483647
+
+scala> val maxIntVal = Float.MaxValue
+maxIntVal: Float = 3.4028235E38
+
+scala> val maxIntVal = Double.MaxValue
+maxIntVal: Double = 1.7976931348623157E308
+
+scala> val maxIntVal = Long.MaxValue
+maxIntVal: Long = 9223372036854775807
+
+scala> val maxIntVal = Char.MaxValue
+maxIntVal: Char = ?
+
+scala> val maxIntVal = Short.MaxValue
+maxIntVal: Short = 32767
+
+scala> val maxIntVal = Byte.MaxValue
+maxIntVal: Byte = 127
+--------- ------------------- ------------
+scala> val numArr = new Array(5)
+numArr: Array[Nothing] = Array(null, null, null, null, null)
+
+scala> val numArr = new Array[Any](5)
+numArr: Array[Any] = Array(null, null, null, null, null)
+
+scala> val numArr = new Array[String](5)
+numArr: Array[String] = Array(null, null, null, null, null)
+
+scala> val numArr:Array[String] = new Array(5)
+numArr: Array[String] = Array(null, null, null, null, null)
+
+scala> val numList = Array("Suraj","Prasab","kumar")
+numList: Array[String] = Array(Suraj, Prasab, kumar)
+
+scala> val numList1 = new Array("Suraj","Prasab","kumar") //NotAllowed as Constructor expects size
+<console>:11: error: too many arguments (3) for constructor Array: (_length: Int)Array[T]
+       val numList1 = new Array("Suraj","Prasab","kumar")
+                                        ^
+scala> println(numList(0))
+Suraj
+
+scala> println(numList(4-2))
+kumar
+
+scala> println(numList(0-2))
+java.lang.ArrayIndexOutOfBoundsException: -2
+  ... 28 elided
+
+scala> println(numList(3))
+java.lang.ArrayIndexOutOfBoundsException: 3
+  ... 28 elided
+
+**WAP to store 5 variables in an Array and print its multiple of 2:
+scala> val numList = Array(1,2,3,4,5)
+numList: Array[Int] = Array(1, 2, 3, 4, 5)
+
+scala> numList.foreach(num=>print(num*2)) //preferred approach
+246810
+
+scala> for(num <- numList){print(num*2)}
+246810
+
+//if want to calculate mul of 2 for each element but would like to store in an another var to use it later
+scala> val numList2=new Array[Int](5)
+numList2: Array[Int] = Array(0, 0, 0, 0, 0)
+
+scala> var count = 0
+count: Int = 0
+
+scala> for(num <- numList){
+     |  numList2(count)=num*2
+     |  count=count+1
+     | }
+
+scala> numList2.foreach(print)
+246810
+
+scala> numList2.foreach(print(_))
+246810
+
+**WAP to store 5 variables in an Array and find the sum of all the num
+scala> var total = 0
+scala> numList.foreach(num => total=total+num)
+
+scala> total
+res30: Int = 15
+
+scala> var total = 0
+total: Int = 0
+
+scala> for(num <- numList){
+     | total = total+num
+     | }
+
+scala> total
+res32: Int = 15
+--------------------------------
+Iterater: for loop, for until, for to, while loop, do while, foreach method
+scala> numList
+res34: Array[Int] = Array(1, 2, 3, 4, 5)
+scala> for(num <- numList){println(num)}
+12345
+scala> for{num <- numList}print(num)
+12345
+
+scala> for(i <- 0 until numList.length)println(s"Array element ${numList(i)}")
+Array element 1
+Array element 2
+Array element 3
+Array element 4
+Array element 5
+
+scala> for(i <- 0 until numList.length by 2)println(s"Array element increment by 2: ${numList(i)} ")
+Array element increment by 2: 1
+Array element increment by 2: 3
+Array element increment by 2: 5
+
+scala> for(index <- 0 to numList.length-1){ print(numList(index))}
+12345
+scala> for(index <- 0 to numList.length){ print(numList(index))}
+12345java.lang.ArrayIndexOutOfBoundsException: 5
+  at .$anonfun$res43$1(<console>:13)
+  at scala.collection.immutable.Range.foreach$mVc$sp(Range.scala:158)
+  ... 28 elided
+
+scala> 0 until 5 // gives object of Range which is not inclusive of upper bound.
+res44: scala.collection.immutable.Range = Range 0 until 5
+
+scala> 0 to 5
+res45: scala.collection.immutable.Range.Inclusive = Range 0 to 5
+
+
+scala> while(count<numList.length){
+     | print(numList(count))
+     | count=count+1
+     | }
+12345
+scala> do{ print(numList(count))
+     | count=count+1
+     | }while(count<numList.length)
+12345
+------- Breaking a loop
+Scala does not have a break keyword, insted you can use Breaks class if you wish to achieve the same.
+scala> import scala.util.control.Breaks._
+import scala.util.control.Breaks._
+
+scala> var sum=0
+sum: Int = 0
+
+scala> breakable{
+     |  for(i <- 0 to 1000){
+     |   sum += i
+     |   if(sum>=500)break
+     |  }
+     | }
+scala> print(sum)
+528
+
+Using Breaks in for loop:
+scala> test{
+     | list.foreach(num =>{
+     |  if(num==5)break
+     |  else print(num)
+     | })
+     | }
+<console>:16: error: not found: value test
+       test{
+       ^
+
+scala> breakable{
+     |  list.foreach(num =>{
+     |   if(num==5)break
+     |   else print(num)
+     |  })
+     |  }
+1234
+scala> list.foreach(num =>{
+     |  if(num==5)break
+     |  else print(num)
+     | })
+1234scala.util.control.BreakControl
+
+Note: scala> breakable
+<console>:15: error: missing argument list for method breakable in class Breaks
+Unapplied methods are only converted to functions when a function type is expected.
+You can make this conversion explicit by writing `breakable _` or `breakable(_)` instead of `breakable`.
+       breakable
+
+-Note: Map will not return you the output ifit breaks inthe middle.
+
+breakable{ 
+ val list2 = list.map(num=> { 
+   if(num==5) break 
+   else num*2 
+  }) 
+ println(list2)
+}
+ 
+NO OutPut.
+
+-- For loop returining value: use yield to return the value from [for loop] but not from foreach.
+yield is used to collect the values from loop expression into a list. 
+scala> val numList=for(x<- 1 to 5)x*2
+numList: Unit = ()
+
+scala> val numList=for(x<- 1 to 5)yield x*2
+numList: scala.collection.immutable.IndexedSeq[Int] = Vector(2, 4, 6, 8, 10)
+
+-- Iterator Guards: They are also called as Filters which help to further apply restriction to the [for loop].
+The loop body will be executed when the filter value evaluates to True.
+
+**Find all the even number from 1 to 20
+scala> val evenList = for(i <- 1 to 20) yield{ if(i%2==0) i }
+evenList: scala.collection.immutable.IndexedSeq[AnyVal] = Vector((), 2, (), 4, (), 6, (), 8, (), 10, (), 12, (), 14,
+ (), 16, (), 18, (), 20)
+Note: in the above program if the if Condition is true then it returns the num, but if it fails then it return Nothing i,e. Unit.
+Hence, to correct this. we can write our condtion inside the for loop as below:
+scala> val evenList = for(i <- 1 to 20 if i%2==0) yield {i}
+evenList: scala.collection.immutable.IndexedSeq[Int] = Vector(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
+
+**Findout all the numbers which are divisible by 3 & 5 together.
+scala> val div35 = for(i <- 1 to 100 if(i%3==0 && i%5==0))yield{i}
+div35: scala.collection.immutable.IndexedSeq[Int] = Vector(15, 30, 45, 60, 75, 90)
+
+** remove empty values
+scala> cities
+res9: String = Hyd,Mum,Kol,,,Chennai
+scala> for(t <- cities.split(",") if(t.size>0)) yield t
+res6: Array[String] = Array(Hyd, Mum, Kol, Chennai)
+
+--Decrementing [for loop]
+scala> for(x <- 10 to 1 )print(x)  //Note: this stmt will print Nothing as we havn't till to decrement or increment.
+
+scala> for(x <- 10 to 1 by -1 )print(s"  $x")
+  10  9  8  7  6  5  4  3  2  1
+
+scala> Range.inclusive(10,1,-1)
+res16: scala.collection.immutable.Range.Inclusive = Range 10 to 1 by -1
+
+scala> for(i <- (1 to 10).reverse)print(s"  $i")
+  10  9  8  7  6  5  4  3  2  1
+
+scala> for(i <- 10 to(1,-1))print(s"  $i")
+  10  9  8  7  6  5  4  3  2  1
+--Nested [for loop]
+like in below jave code, itis not support this syntax in SCALA
+for(int i=1;i<3;i++){
+ for(int j=1;j<=2;j++){
+  System.out.println(i+" "+j)
+ }
+}
+this can be written in SCALA as :
+for(i <- 1 to 3){
+ for(j <- 1 to 2){
+  println(s"$i , $j")
+ }
+}
+or we can write above code in a single stmt:
+scala> for( i <- 1 to 3;j <- 1 to 2)println(s"$i, $j")
+1 , 1
+1 , 2
+2 , 1
+2 , 2
+3 , 1
+3 , 2
+
+--- Defining extra variable inside the [for loop]:
+scala> val tableOf2= for(i <- 1 to 10;num=2)yield println(s"$num * $i = ${num * i}"
+2 * 1 = 2
+2 * 2 = 4
+2 * 3 = 6
+2 * 4 = 8
+2 * 5 = 10
+2 * 6 = 12
+2 * 7 = 14
+2 * 8 = 16
+2 * 9 = 18
+2 * 10 = 20
+
+scala> val numArray = Array(1,2,3,4,5)
+numArray: Array[Int] = Array(1, 2, 3, 4, 5)
+
+scala> numArray.reduceLeft(_+_)  // is same as scala> numArray.reduceLeft((a,b) => a+b)
+res28: Int = 15
+Note: your function must return the same dataType that's stored inthe collection. This is necessary so reduceLeft can compare that result to the next element inthe collection.
+
+scala> numArray.reduceLeft( (num1,num2) =>{
+     |  println(s"num1=$num1 num2=$num2")
+     |  num1+num2
+     |  }
+     | )
+num1=1 num2=2
+num1=3 num2=3
+num1=6 num2=4
+num1=10 num2=5
+res30: Int = 15
+
+** Find Largest String in a List?
+scala> val nameList=List("suraz","Kiran","Isha","tom")
+nameList: List[String] = List(suraz, Kiran, Isha, tom)
+
+scala> nameList.reduceLeft( (name1,name2) => { if(name1.length >name2.length)name1 else name2})
+res31: String = Kiran
+
+*** Assignment:
+PNO:12
+scala> val nameList=List("Suraz","Kiran","Isha","tom")
+numList: List[String] = List(Suraz, Kiran, Isha, tom)
+
+scala> nameList.reduceLeft( (name1,name2) => { if(name1.length >name2.length)name1 else name2}).length
+res33: Int = 5
+PN:12
+**WAP to return the largest String based onthe below logic.(Solved)
+if "Suraz", "Kiran" to compare (add unicode of each character from individual string.
+Suraz = Unicode(S) + unicode(u)+....+unicode(z)
+Kiran = unicode(K)+ ....+Unicode(n)
+retrun String whose ASCII total is greater.
+Hint: Write a separate function to implement this logic. findGreatestByUnicode
+
+-- ReduceRight
+scala> val numArray = Array(1,2,3,4,5,6)
+numArray: Array[Int] = Array(1, 2, 3, 4, 5, 6)
+
+scala> numArray.reduceRight( (num1,num2) => {println(s"num1=${num1}   num2=${num2}"); num1+num2;})
+num1=5   num2=6
+num1=4   num2=11
+num1=3   num2=15
+num1=2   num2=18
+num1=1   num2=20
+res32: Int = 21
+
+--------- ARRAY -----------
+Arrays are mutable and indexed collection of elements and cannot grow dynamically.
+scala> val numArr = new Array[Int](5)
+numArr: Array[Int] = Array(0, 0, 0, 0, 0)
+
+scala> for( i <- 0 until numArr.length)numArr(i) = (i*5)
+
+scala> numArr
+res2: Array[Int] = Array(0, 5, 10, 15, 20)
+
+scala> for( i <- 0 until numArr.length) yield{ (i*4)}
+res4: scala.collection.immutable.IndexedSeq[Int] = Vector(0, 4, 8, 12, 16)
+
+-- Create an Array Variable pointing to null:
+scala> var numArray:Array[Int]=_
+numArray: Array[Int] = null
+
+-- when need define it Properly
+scala> numArray=Array(1,2,3)
+numArray: Array[Int] = [I@5fee3c9c
+
+scala> numArray(1)
+res7: Int = 2
+
+Deleting elements from Array:
+Since Array are created at the time of declaration, you cannot directly delete the elemnt from the array
+scala> scala.util.Sorting.quickSort(numArr)
+
+scala> numArr
+res19: Array[Int] = Array(3, 4, 5, 7, 8, 9, 10, 66)
+
+-- ArrayBuffer(resizable Array)
+scala> import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.ArrayBuffer
+
+scala> val numArrayBuffer = ArrayBuffer[Int]()
+numArrayBuffer: scala.collection.mutable.ArrayBuffer[Int] = ArrayBuffer()
+
+scala> numArrayBuffer += 5
+res26: numArrayBuffer.type = ArrayBuffer(5)
+
+scala> numArrayBuffer +=3
+res27: numArrayBuffer.type = ArrayBuffer(5, 3)
+
+-- Adding elements to an ArrayBuffer, there are multiple ways to add:
+scala> val numArrBuffer = ArrayBuffer(1,2)
+numArrBuffer: scala.collection.mutable.ArrayBuffer[Int] = ArrayBuffer(1, 2)
+
+scala> numArrBuffer += 3
+res30: numArrBuffer.type = ArrayBuffer(1, 2, 3)
+
+scala> numArrBuffer += (5,6)
+res31: numArrBuffer.type = ArrayBuffer(1, 2, 3, 5, 6)
+
+scala> numArrBuffer += Seq(8,9)
+<console>:14: error: type mismatch;
+ found   : Seq[Int]
+ required: Int
+       numArrBuffer += Seq(8,9)
+                          ^
+
+scala> numArrBuffer ++= Seq(8,9) //This will not work it needs [++=]insted
+res33: numArrBuffer.type = ArrayBuffer(1, 2, 3, 5, 6, 8, 9)
+scala> numArrBuffer.append(10)
+
+scala> numArrBuffer ++= Array(11,10)
+res35: numArrBuffer.type = ArrayBuffer(1, 2, 3, 5, 6, 8, 9, 10, 11, 10)
+
+-- Remove the element similarly:
+scala> numArrBuffer -=10
+res36: numArrBuffer.type = ArrayBuffer(1, 2, 3, 5, 6, 8, 9, 11, 10)
+
+scala> numArrBuffer -= (7,6)
+res37: numArrBuffer.type = ArrayBuffer(1, 2, 3, 5, 8, 9, 11, 10)
+
+scala> numArrBuffer -= Array(11,10) //This will not work it needs [--=]insted
+<console>:14: error: type mismatch;
+ found   : Array[Int]
+ required: Int
+       numArrBuffer -= Array(11,10)
+                            ^
+
+scala> numArrBuffer --= Array(11,10)
+res39: numArrBuffer.type = ArrayBuffer(1, 2, 3, 5, 8, 9)
+
+scala> numArrBuffer --= Seq(5,4)
+res40: numArrBuffer.type = ArrayBuffer(1, 2, 3, 8, 9)
+
+**Note: Array is not the child of TraversableOnce, but it is possible to pass that in the argument. 
+i,e.. When ever we try to pass Array Obj into a method that accepts Traversable, Array is automatically converted to WrappedArray which is Traversable. and hence the code will work successfully. 
+it is same as passing long Dayatype into param accepting  double or Number.( as Long primitive will Autoconvert double (java concept)and then double will wrapped to Double Datatype which is a subClass of Number.
+
+Example:
+scala> def x(t:Traversable[Int])= t match{
+     | case x:Array[Int] => true
+     | }
+<console>:13: warning: fruitless type test: a value of type Traversable[Int] cannot also be a Array[Int]
+       case x:Array[Int] => true
+              ^
+<console>:13: error: pattern type is incompatible with expected type;
+ found   : Array[Int]
+ required: Traversable[Int]
+       case x:Array[Int] => true
+              ^
+
+scala> Array(1,2,3).isInstanceOf[Traversable]
+<console>:13: error: type Traversable takes type parameters
+       Array(1,2,3).isInstanceOf[Traversable]
+                                 ^
+scala> def x(t:Traversable[Int])={println(t);
+     | t.isInstanceOf[scala.collection.mutable.WrappedArray[_]]}
+x: (t: Traversable[Int])Boolean
+
+scala> x(Array(1,2,3))
+WrappedArray(1, 2, 3)
+res42: Boolean = true
+
+- as seen above code, when ever we try to pass Array object into a method that accepts Traversable, Array is automativally converted to WrappedArray which is Traversable and hence the code words.
+
+Removeing elements by Position:
+scala> val numArrBuffer = ArrayBuffer(1,2,3,4,5)
+numArrBuffer: scala.collection.mutable.ArrayBuffer[Int] = ArrayBuffer(1, 2, 3, 4, 5)
+
+scala> numArrBuffer.remove(2) //index starts with 0, 2 means 3rd index
+res43: Int = 3
+
+scala> numArrBuffer.remove(1,2) //Starting from index=1, remove 2 elements index start with 0
+
+scala> numArrBuffer
+res45: scala.collection.mutable.ArrayBuffer[Int] = ArrayBuffer(1, 5)
+
+scala> numArrBuffer.clear
+
+scala> numArrBuffer
+res47: scala.collection.mutable.ArrayBuffer[Int] = ArrayBuffer()
+
+----------- Multi-Dimensional Array in Scala -----------
+Multi Dimension Array can be created in 2 ways:
+1. using [Array.ofDim]
+2. using Arrays of Array
+
+Suppose you want to create an Array of 3*2
+scala> val arr =Array.ofDim[Int](3,2)
+arr: Array[Array[Int]] = Array(Array(0, 0), Array(0, 0), Array(0, 0))
+Suppose you want to create an Array of 2*3
+scala> val arr =Array.ofDim[Int](2,3)
+arr: Array[Array[Int]] = Array(Array(0, 0, 0), Array(0, 0, 0))
+
+arr1(0)(0)=1
+arr1(0)(1)=2
+
+arr1(1)(0)=3
+arr1(1)(1)=4
+
+arr1(2)(0)=5
+arr1(2)(1)=1
+
+scala> arr1
+res60: Array[Array[Int]] = Array(Array(1, 2), Array(3, 4), Array(5, 1))
+
+scala> val arr = Array.ofDim[Int](rows, cols)
+arr: Array[Array[Int]] = Array(Array(0, 0), Array(0, 0), Array(0, 0))
+
+scala> for{i <- 0 until rows;j <- 0 until cols}println(s"($i)($j)=${arr(i)(j)}")
+(0)(0)=0
+(0)(1)=0
+(1)(0)=0
+(1)(1)=0
+(2)(0)=0
+(2)(1)=0
+
+
+ scala> for(i<-0 until rows){
+     |   for(j<-0 until cols){
+     |    print(s"${arr(i)(j)}\t")
+     |     if(j==cols-1)println()
+     |   }
+     |  }
+0       0
+0       0
+0       0
+
+scala> for{ i <- 0 until rows
+     |      j <- 0 until cols
+     | }{
+     | print(s"${arr(i)(j)} \t")
+     | if(j==cols-1)println()
+     | }
+0       0
+0       0
+0       0
+

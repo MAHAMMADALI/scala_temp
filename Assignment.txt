@@ -1,0 +1,197 @@
+---------------- Assignments ----------------  ----------------  ---------------- 
+********* Assignments on Strings: *********
+String P-No:2
+Write a function that takes an int and return you 5 characters String:
+Note: use fill Strings concept.
+example: "Hello"*3+"world"
+123(Int)-> 00123(String)
+1 	-> 00001
+12345	-> 12345
+123456	-> 12345
+0	-> 00000
+-ve num	-> 00000
+
+object PS1StringFilling {
+  def leftPad(num: Int, limitTo: Int): String = {
+    var strNum = num.toString
+    if (num < 0) strNum = "0"
+    else if (num.toString.length > limitTo)
+      strNum = num.toString.substring(0, limitTo)
+      "0" * (limitTo - strNum.length) + strNum
+  }
+  def main(args: Array[String]): Unit = {
+    println("leftPad(123, 5):" + leftPad(123, 5))
+    println("leftPad(1, 5):" + leftPad(1, 5));
+    println("leftPad(12345, 5):" + leftPad(12345, 5))
+    println("leftPad(123456, 5):" + leftPad(123456, 5))
+    println("leftPad(0, 5):" + leftPad(0, 5))
+    println("leftPad(-123, 5):" + leftPad(-123, 5))
+  }
+}
+
+leftPad(123, 5):00123
+leftPad(1, 5):00001
+leftPad(12345, 5):12345
+leftPad(123456, 5):12345
+leftPad(0, 5):00000
+leftPad(-123, 5):00000
+=========================================
+String P-No:8
+-------------
+1. Read a string and convert all uppercase to lowercase and vice-versa
+ex: HelloWorld => hELLOwORLD
+ASCII values of 
+[a-z] = [97-122]
+[A-Z] = [65-90]
+package assignments.strings
+/**Read a string and convert al uppercase to lowercase and vice-versa
+ex: HelloWorld => hELLOwORLD
+ASCII values of
+  [a-z] = [97-122]
+[A-Z] = [65-90] **/
+
+package assignments.strings
+object PS2caseConvert {
+
+  def main(args: Array[String]): Unit = {
+    println( s"case convert of string Hello : ${caseConvert( "Hello")}")
+    println( s"case convert of string abc : ${caseConvert( "abc")}")
+    println( s"case convert of string DEF16 : ${caseConvert( "DEF16")}")
+    println( s"case convert of string ghi# : ${caseConvert( "ghi#")}")
+    println( s"case convert of empty string  : ${caseConvert( "")}")
+  }
+  def caseConvert(msg:String):String={
+    val n = msg.length
+    var str = ""
+    for ( i <- 0 until n ){
+      if(msg.charAt(i)>=97 && msg.charAt(i)<=122) {str = str+msg.charAt(i).toUpper}
+      else if(msg.charAt(i)>=65 && msg.charAt(i)<=90) {str = str+msg.charAt(i).toLower}
+      else str=str+msg.charAt(i)
+    }
+    str
+  }
+}
+OUTPUT:
+case convert of string Hello : hELLO
+case convert of string abc : ABC
+case convert of string DEF16 : def16
+case convert of string ghi# : GHI#
+case convert of empty string  : 
+=========================================
+2. /** read a string and just collect all the numbers
+  * Hint: try reading them byte wise and read the  ASCII of numbers and filter them
+  * ex: Hello4World23=>423  */
+package assignments.strings
+object ReadingNumInString {
+  def readingNumInString(msg: String): String = {
+    val n = msg.length
+    var str = ""
+    for (i <- 0 until n) {
+      if (!(msg.charAt(i) >= 97 && msg.charAt(i) <= 122) &&
+          !(msg.charAt(i) >= 65 && msg.charAt(i) <= 90) &&
+          !(msg.charAt(i) >= 0 && msg.charAt(i) <= 47) &&
+          !(msg.charAt(i) >= 58 && msg.charAt(i) <= 64)) str = str + msg.charAt(i)
+    }
+    str
+  }
+  def main(args: Array[String]): Unit = {
+    println(s"case convert of string H(e12llo : ${readingNumInString("H(e12llo")}")
+    println(s"case convert of string 56a,bc : ${readingNumInString("56a,bc")}")
+    println(s"case convert of string DEF16 : ${readingNumInString("DE****F16")}")
+    println(s"case convert of string 3ghi- : ${readingNumInString("3ghi-")}")
+    println(s"case convert of string 1$$23%45 : ${readingNumInString("1$23%45")}")
+  }
+}
+OUTPUT:
+case convert of string H(e12llo : 12
+case convert of string 56a,bc : 56
+case convert of string DEF16 : 16
+case convert of string 3ghi- : 3
+case convert of string 1$23%45 : 12345
+=========================================
+Strings P-no: 15
+----------------
+
+produce the age of the customer provided you a given with date of Birth as well as format in the below format.
+"25-01-1989".age("dd-mm-yyyy") //29Y04M20D
+"25011989".age("ddmmYYYY") //29Y04M20D
+"01251989".age("MMDDYYYY") //29Y04M20D
+
+
+=========================================
+2. Create an Employee class with fields name, salary, DOB.
+Later create an implicit class(EmployeeUtils) with below methods
+- hikeSalary(percentage:Float):Employee
+It retruns you back new employee object with the Hiked Salary.
+
+scala> class Emp(val name:String, val sal:Float, val dob:String){
+     |   var empName=name
+     |   var empSal:Float =sal
+     |   var empDOB:String=dob
+     |   println(s"${empName} , ${empSal}, ${empDOB}")
+     | }
+defined class Emp
+
+scala> implicit class EmployeeUtils(empDetails: Emp){
+     |   def hikeSalary(percentage:Float){
+     |     empDetails.empSal = empDetails.empSal + (percentage * empDetails.empSal)
+     |     println(s"New Emp name: ${empDetails.empName}, Sal: ${empDetails.empSal}, DOB: ${empDetails.empDOB}")
+     |   }
+     | }
+defined class EmployeeUtils
+
+scala> val empObj = new Emp("kia",1000,"2018-10-10")
+kia , 1000.0, 2018-10-10
+empObj: Emp = Emp@356b73ad
+
+scala> empObj.hikeSalary(0.6f)
+New Emp name: kia, Sal: 1600.0, DOB: 2018-10-10
+=========================================
+********* Assignments on Array&Loops*********
+PNO:12
+scala> val nameList=List("Suraz","Kiran","Isha","tom")
+numList: List[String] = List(Suraz, Kiran, Isha, tom)
+
+scala> nameList.reduceLeft( (name1,name2) => { if(name1.length >name2.length)name1 else name2}).length
+res33: Int = 5
+
+*WAP to return the largest String based onthe below logic.
+if "Suraz", "Kiran" to compare (add unicode of each character from individual string.
+Suraz = Unicode(S) + unicode(u)+....+unicode(z)
+Kiran = unicode(K)+ ....+Unicode(n)
+retrun String whose ASCII total is greater.
+Hint: Write a separate function to implement this logic. findGreatestByUnicode
+
+object StringACIISum {
+
+  val nameList = List( "oi", "Isha", "Tom", "HELLO", "hello","Shaik")
+  val nameList1 = List( "123", "456", "789")
+
+  def findGreatestByUnicode(namedList: List[String]):String={
+
+    namedList.reduceLeft( (name1,name2) => {
+      println(s"current strings to compir are: ${name1} , ${name2}")
+      if( sumACCII(name1) > sumACCII(name2) )
+        name1
+      else name2
+    })
+  }
+
+  def sumACCII(name:String):(Int)={
+    var summsg=0
+    for(i <- 0 until  name.length){
+
+      summsg=summsg+name.charAt(i)
+    }
+    (summsg)
+  }
+
+  def main(args: Array[String]): Unit = {
+    print(findGreatestByUnicode(nameList))
+  }
+}
+=================
+
+
+
+
